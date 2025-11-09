@@ -11,6 +11,7 @@ public class MainActivity extends SDLActivity {
                 "SDL3",
                 "SDL3_image",
                 "SDL3_ttf",
+                "box2d",
                 "GlimmerWorks",
         };
     }
