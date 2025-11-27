@@ -7,7 +7,7 @@ public class MainActivity extends SDLActivity {
     @Override
     protected String[] getLibraries() {
         return new String[]{
-                "fmt",
+                CppConfig.IsDebug() ? "fmtd" : "fmt",
                 "SDL3",
                 "SDL3_image",
                 "SDL3_ttf",
