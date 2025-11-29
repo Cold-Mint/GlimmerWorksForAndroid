@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">GlimmerWorks</string>
     <string name="decompressed_resources">Unzip %1$s…</string>
-    <string name="decompression_completed">Decompression completed</string>
     <string name="decompression_failed">Decompression failed</string>
 </resources>

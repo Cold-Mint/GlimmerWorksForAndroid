@@ -1,8 +1,6 @@
 package com.coldmint.glimmerworks;
 
-import android.content.pm.ActivityInfo;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
@@ -14,11 +12,10 @@ import java.util.Objects;
 public class GameActivity extends SDLActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onResume() {
+        super.onResume();
         //Set the full-screen mode and lock the landscape mode.
         //设置全屏模式，且锁定横屏。
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             getWindow().setDecorFitsSystemWindows(false);
             Objects.requireNonNull(getWindow().getInsetsController()).hide(WindowInsets.Type.statusBars() | WindowInsets.Type.navigationBars());

@@ -1,8 +1,10 @@
 package com.coldmint.glimmerworks;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -41,8 +43,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openGameActivity() {
-        finish();
         startActivity(new Intent(this, GameActivity.class));
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
     public void decompressAssets() {
@@ -97,19 +100,19 @@ public class MainActivity extends AppCompatActivity {
 
                 // 解压完成
                 runOnUiThread(() -> {
-                            viewBinding.textView.setText(
-                                    getString(R.string.decompression_completed)
-                            );
+                            viewBinding.textView.setVisibility(View.GONE);
                             openGameActivity();
                         }
 
                 );
-
             } catch (Exception e) {
                 e.printStackTrace();
-                runOnUiThread(() -> viewBinding.textView.setText(
-                        getString(R.string.decompression_failed)
-                ));
+                runOnUiThread(() -> {
+                    viewBinding.textView.setText(
+                            getString(R.string.decompression_failed)
+                    );
+                    viewBinding.progressBar.setVisibility(View.GONE);
+                });
             }
         }).start();
     }
@@ -123,7 +126,11 @@ public class MainActivity extends AppCompatActivity {
             while ((len = is.read(buffer)) != -1) {
                 baos.write(buffer, 0, len);
             }
-            return baos.toString(StandardCharsets.UTF_8);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                return baos.toString(StandardCharsets.UTF_8);
+            } else {
+                return baos.toString();
+            }
         }
     }
 
